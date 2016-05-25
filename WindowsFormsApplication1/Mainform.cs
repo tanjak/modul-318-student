@@ -21,6 +21,7 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
+        //A002
         private void searchTimeTable(object sender, EventArgs e)
         {
             dt.Columns.Clear();
@@ -50,18 +51,16 @@ namespace WindowsFormsApplication1
                 dgvConnections.Columns[2].Width = 55;
                 dgvConnections.Columns[3].Width = 50;   
             }
-
-
         }        
 
+        //A004
         private void showAutoCompletion(object sender, KeyEventArgs e)
         {
             string station;
             if (txtfromStation.Focused)
             {
                 station = txtfromStation.Text;
-            }else
-            {
+            }else{
                 station = txttoStation.Text;
             }            
 
@@ -87,6 +86,7 @@ namespace WindowsFormsApplication1
             return collection;
         }
         
+        //A003
         private void searchDepatures(object sender, EventArgs e)
         {
             dt.Columns.Clear();
@@ -109,6 +109,7 @@ namespace WindowsFormsApplication1
             }
         }
 
+        //if radio button check changes
         private void checkedChanged(object sender, EventArgs e)
         {
             if (rbTimeTable.Checked)
@@ -125,6 +126,7 @@ namespace WindowsFormsApplication1
             }
         }
 
+        //A006
         private void showOnMaps(object sender, EventArgs e)
         {
             
