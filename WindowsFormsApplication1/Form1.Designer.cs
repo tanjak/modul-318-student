@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnTimeTable = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtfromStation = new System.Windows.Forms.TextBox();
             this.txttoStation = new System.Windows.Forms.TextBox();
             this.dgvConnections = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnDepartures = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnSearch
+            // btnTimeTable
             // 
-            this.btnSearch.Location = new System.Drawing.Point(339, 87);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(101, 23);
-            this.btnSearch.TabIndex = 0;
-            this.btnSearch.Text = "Fahrplan suchen";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnTimeTable.Location = new System.Drawing.Point(339, 87);
+            this.btnTimeTable.Name = "btnTimeTable";
+            this.btnTimeTable.Size = new System.Drawing.Size(101, 23);
+            this.btnTimeTable.TabIndex = 0;
+            this.btnTimeTable.Text = "Fahrplan suchen";
+            this.btnTimeTable.UseVisualStyleBackColor = true;
+            this.btnTimeTable.Click += new System.EventHandler(this.searchTimeTable);
             // 
             // label1
             // 
@@ -93,6 +93,7 @@
             this.dgvConnections.AllowUserToResizeColumns = false;
             this.dgvConnections.AllowUserToResizeRows = false;
             this.dgvConnections.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvConnections.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvConnections.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvConnections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvConnections.Location = new System.Drawing.Point(34, 126);
@@ -103,15 +104,15 @@
             this.dgvConnections.Size = new System.Drawing.Size(406, 216);
             this.dgvConnections.TabIndex = 10;
             // 
-            // button1
+            // btnDepartures
             // 
-            this.button1.Location = new System.Drawing.Point(339, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Abfahrt suchen";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.searchArrival);
+            this.btnDepartures.Location = new System.Drawing.Point(339, 42);
+            this.btnDepartures.Name = "btnDepartures";
+            this.btnDepartures.Size = new System.Drawing.Size(101, 23);
+            this.btnDepartures.TabIndex = 12;
+            this.btnDepartures.Text = "Abfahrt suchen";
+            this.btnDepartures.UseVisualStyleBackColor = true;
+            this.btnDepartures.Click += new System.EventHandler(this.searchDepatures);
             // 
             // Form1
             // 
@@ -119,13 +120,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(468, 369);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnDepartures);
             this.Controls.Add(this.dgvConnections);
             this.Controls.Add(this.txttoStation);
             this.Controls.Add(this.txtfromStation);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.btnTimeTable);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).EndInit();
@@ -136,13 +139,13 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnTimeTable;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtfromStation;
         private System.Windows.Forms.TextBox txttoStation;
         private System.Windows.Forms.DataGridView dgvConnections;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDepartures;
     }
 }
 
