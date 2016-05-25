@@ -21,7 +21,7 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void searchArrival(object sender, EventArgs e)
         {
             dt.Columns.Clear();
             dt.Rows.Clear();
@@ -55,23 +55,19 @@ namespace WindowsFormsApplication1
             }
 
 
-        }
-
-        private void checkStation(string station)
-        {
-            Stations temp = transport.GetStations(station);
-            if (transport.GetStations(station).ToString() == station)
-            {
-                MessageBox.Show("yay");
-                //return true;
-            }
-            MessageBox.Show("nooo");
-            //return false;
-        }
+        }        
 
         private void showAutoCompletion(object sender, KeyEventArgs e)
         {
-            string station = txtfromStation.Text;
+            string station;
+            if (txtfromStation.Focused)
+            {
+                station = txtfromStation.Text;
+            }else
+            {
+                station = txttoStation.Text;
+            }
+            
 
             if (station.Length == 3)
             {
@@ -82,7 +78,7 @@ namespace WindowsFormsApplication1
 
             if (e.KeyData == Keys.Enter)
             {
-                btnSearch_Click(sender, e);
+                searchArrival(sender, e);
             }
         }
 
@@ -98,23 +94,6 @@ namespace WindowsFormsApplication1
             }
 
             return collection;
-        }
-
-        private void showAutoCompletionEnd(object sender, KeyEventArgs e)
-        {
-            string station = txttoStation.Text;
-
-            if (station.Length == 3)
-            {
-                txtfromStation.AutoCompleteCustomSource = autoComplete(station);
-                txtfromStation.AutoCompleteMode = AutoCompleteMode.Suggest;
-                txtfromStation.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            }
-
-            if (e.KeyData == Keys.Enter)
-            {
-                btnSearch_Click(sender, e);
-            }
-        }
+        }        
     }
 }

@@ -34,17 +34,17 @@
             this.txtfromStation = new System.Windows.Forms.TextBox();
             this.txttoStation = new System.Windows.Forms.TextBox();
             this.dgvConnections = new System.Windows.Forms.DataGridView();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(365, 65);
+            this.btnSearch.Location = new System.Drawing.Point(339, 87);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Size = new System.Drawing.Size(101, 23);
             this.btnSearch.TabIndex = 0;
-            this.btnSearch.Text = "Suchen";
+            this.btnSearch.Text = "Fahrplan suchen";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -84,7 +84,7 @@
             this.txttoStation.Name = "txttoStation";
             this.txttoStation.Size = new System.Drawing.Size(278, 22);
             this.txttoStation.TabIndex = 9;
-            this.txttoStation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.showAutoCompletionEnd);
+            this.txttoStation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.showAutoCompletion);
             // 
             // dgvConnections
             // 
@@ -103,15 +103,15 @@
             this.dgvConnections.Size = new System.Drawing.Size(406, 216);
             this.dgvConnections.TabIndex = 10;
             // 
-            // checkBox1
+            // button1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(159, 146);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(80, 17);
-            this.checkBox1.TabIndex = 11;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(339, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Abfahrt suchen";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.searchArrival);
             // 
             // Form1
             // 
@@ -119,7 +119,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(468, 369);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.dgvConnections);
             this.Controls.Add(this.txttoStation);
             this.Controls.Add(this.txtfromStation);
@@ -142,7 +142,7 @@
         private System.Windows.Forms.TextBox txtfromStation;
         private System.Windows.Forms.TextBox txttoStation;
         private System.Windows.Forms.DataGridView dgvConnections;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button1;
     }
 }
 
