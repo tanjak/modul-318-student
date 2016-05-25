@@ -11,12 +11,12 @@ using SwissTransport;
 
 namespace WindowsFormsApplication1
 {
-    public partial class Form1 : Form
+    public partial class mainForm : Form
     {
         Transport transport = new Transport();
         DataTable dt = new DataTable();
 
-        public Form1()
+        public mainForm()
         {
             InitializeComponent();
         }
@@ -28,8 +28,8 @@ namespace WindowsFormsApplication1
 
             dt.Columns.Add(new DataColumn("Bahnhof / Haltestelle", typeof(string)));
             dt.Columns.Add(new DataColumn("Zeit", typeof(string)));
-            dt.Columns.Add(new DataColumn("Dauer", typeof(string)));
             dt.Columns.Add(new DataColumn("Gleis", typeof(string)));
+            dt.Columns.Add(new DataColumn("Dauer", typeof(string)));
 
             string fromStation = txtfromStation.Text;
             string toStation = txttoStation.Text;
@@ -43,7 +43,7 @@ namespace WindowsFormsApplication1
 
                 dgvConnections.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
                 dt.Rows.Add(connection.From.Station.Name + Environment.NewLine + connection.To.Station.Name, "ab " + Convert.ToDateTime(connection.From.Departure).ToShortTimeString() +
-                    Environment.NewLine + "an " + Convert.ToDateTime(connection.To.Arrival).ToShortTimeString(), connection.Duration.Substring(3), connection.From.Platform + Environment.NewLine + connection.To.Platform);
+                    Environment.NewLine + "an " + Convert.ToDateTime(connection.To.Arrival).ToShortTimeString(), connection.From.Platform + Environment.NewLine + connection.To.Platform, connection.Duration.Substring(3));
 
                 dgvConnections.DataSource = dt;
                 dgvConnections.Columns[1].Width = 65;
@@ -107,6 +107,27 @@ namespace WindowsFormsApplication1
 
                 dgvConnections.DataSource = dt;
             }
+        }
+
+        private void checkedChanged(object sender, EventArgs e)
+        {
+            if (rbTimeTable.Checked)
+            {
+                btnTimeTable.Visible = true;
+                txttoStation.Enabled = true;
+                btnDepartures.Visible = false;
+            }
+            else
+            {
+                btnDepartures.Visible = true;
+                btnTimeTable.Visible = false;
+                txttoStation.Enabled = false;
+            }
+        }
+
+        private void showOnMaps(object sender, EventArgs e)
+        {
+            
         }
     }
 }
