@@ -58,12 +58,6 @@
     <Compile Include="Mainform.Designer.cs">
       <DependentUpon>Mainform.cs</DependentUpon>
     </Compile>
-    <Compile Include="Maps.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Maps.Designer.cs">
-      <DependentUpon>Maps.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Mainform.resx">
