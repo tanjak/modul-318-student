@@ -20,6 +20,8 @@ namespace WindowsFormsApplication1
         public mainForm()
         {
             InitializeComponent();
+            this.dtpDatum.Value = DateTime.Now;
+            this.dtpZeit.Value = DateTime.Now;
         }
 
         //if radio button check changes
@@ -29,6 +31,7 @@ namespace WindowsFormsApplication1
             {
                 btnTimeTable.Visible = true;
                 txttoStation.Enabled = true;
+                btnMapsTo.Enabled = true;
                 btnDepartures.Visible = false;
             }
             else
@@ -36,6 +39,7 @@ namespace WindowsFormsApplication1
                 btnDepartures.Visible = true;
                 btnTimeTable.Visible = false;
                 txttoStation.Enabled = false;
+                btnMapsTo.Enabled = false;
             }
         }
 
@@ -44,6 +48,7 @@ namespace WindowsFormsApplication1
         {
             dt.Columns.Clear();
             dt.Rows.Clear();
+            dt.Clear();
 
             dt.Columns.Add(new DataColumn("Bahnhof / Haltestelle", typeof(string)));
             dt.Columns.Add(new DataColumn("Zeit", typeof(string)));
@@ -54,13 +59,16 @@ namespace WindowsFormsApplication1
             string toStation = txttoStation.Text;
             DateTime date = dtpDatum.Value;
             DateTime time = dtpZeit.Value;
+
             var connections = transport.GetConnectionsviaDate(fromStation, toStation, date, time).ConnectionList;
 
             foreach (var connection in connections)
             {
                 dgvConnections.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                dt.Rows.Add(connection.From.Station.Name + Environment.NewLine + connection.To.Station.Name, "ab " + Convert.ToDateTime(connection.From.Departure).ToShortTimeString() +
-                    Environment.NewLine + "an " + Convert.ToDateTime(connection.To.Arrival).ToShortTimeString(), connection.From.Platform + Environment.NewLine + connection.To.Platform, connection.Duration.Substring(3));
+                dt.Rows.Add(connection.From.Station.Name + Environment.NewLine + connection.To.Station.Name, 
+                    "ab " + Convert.ToDateTime(connection.From.Departure).ToShortTimeString() + Environment.NewLine + 
+                    "an " + Convert.ToDateTime(connection.To.Arrival).ToShortTimeString(), connection.From.Platform + 
+                    Environment.NewLine + connection.To.Platform, connection.Duration.Substring(3));
 
                 dgvConnections.DataSource = dt;
                 dgvConnections.Columns[1].Width = 65;
@@ -74,6 +82,7 @@ namespace WindowsFormsApplication1
         {
             dt.Columns.Clear();
             dt.Rows.Clear();
+            dt.Clear();
 
             dt.Columns.Add(new DataColumn("Linie", typeof(string)));
             dt.Columns.Add(new DataColumn("Ziel", typeof(string)));
@@ -81,8 +90,9 @@ namespace WindowsFormsApplication1
             dt.Columns.Add(new DataColumn("Abfahrt", typeof(string)));
 
             string station = txtfromStation.Text;
-
-            var stationBoard = transport.GetStationBoard(station, transport.GetStations(station).StationList[0].Id).Entries;
+            DateTime date = dtpDatum.Value; 
+            DateTime time = dtpZeit.Value;
+            var stationBoard = transport.GetStationBoardviaDateTime(station, transport.GetStations(station).StationList[0].Id, date, time).Entries;
 
             foreach (var connection in stationBoard)
             {
@@ -135,12 +145,22 @@ namespace WindowsFormsApplication1
         //A006
         private void showOnMaps(object sender, EventArgs e)
         {
-            string fromStation = txtfromStation.Text;
-            var transportList = transport.GetStations(fromStation).StationList;
-
-            if(fromStation == "")
+            string station = "";
+            if (btnMapsFrom.Focused)
             {
-                MessageBox.Show("Bitte Startstation eingeben.");
+                station = txtfromStation.Text;  
+            }
+            else
+            {
+                station = txttoStation.Text;
+                
+            }
+
+            var transportList = transport.GetStations(station).StationList;
+
+            if (station == "")
+            {
+                MessageBox.Show("Bitte Station eingeben.");
             }
             else
             {
@@ -151,7 +171,7 @@ namespace WindowsFormsApplication1
                     double y = transportList[0].Coordinate.YCoordinate;
                     System.Diagnostics.Process.Start("https://www.google.ch/maps/place/" + x + "+" + y);
                 }
-            }                        
+            }
         }
 
         //A008

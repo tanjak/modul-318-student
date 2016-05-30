@@ -84,5 +84,43 @@ namespace SwissTransport
 
             return null;
         }
+
+        public StationBoardRoot GetStationBoardviaDateTime(string station, string id, DateTime date, DateTime time)
+        {
+            var request = CreateWebRequest("http://transport.opendata.ch/v1/stationboard?station=" + station + "&datetime=" + date.ToString("yyyy-MM-dd") + time.ToString("HH:mm"));
+            var response = request.GetResponse();
+            var responseStream = response.GetResponseStream();
+
+            if (responseStream != null)
+            {
+                var readToEnd = new StreamReader(responseStream).ReadToEnd();
+                var stationboard =
+                    JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
+                return stationboard;
+            }
+
+            return null;
+        }
+
+        public StationBoardRoot getNearestStation(double x, double y)
+        {
+            var request = CreateWebRequest("http://transport.opendata.ch/v1/locations?x=" + x + "&y=" + y);
+            var response = request.GetResponse();
+            var responseStream = response.GetResponseStream();
+
+            if (responseStream != null)
+            {
+                var readToEnd = new StreamReader(responseStream).ReadToEnd();
+                var stationboard =
+                    JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
+                return stationboard;
+            }
+
+            return null;
+        }
+        public 
+        //zum koordinaten
+        //http://transport.opendata.ch/v1/locations?x=46.946807&y=8.009079
+        
     }
 }
