@@ -14,9 +14,12 @@ namespace WindowsFormsApplication1
 {
     public partial class Mail : Form
     {
-        public Mail()
+        List<string> allConnections;
+
+        public Mail(List<string> Connections)
         {
-            InitializeComponent();  
+            InitializeComponent();
+            allConnections = Connections;
         }
 
         private void btnSenden_Click(object sender, EventArgs e)
@@ -29,7 +32,13 @@ namespace WindowsFormsApplication1
             smtp.Credentials = new NetworkCredential(txtVon.Text, txtPasswort.Text);
             smtp.Host = "smtp.gmail.com";
             mail.To.Add(new MailAddress(txtAn.Text));
-            mail.Body = txtNachricht.Text;
+            mainForm form = new mainForm();
+            mail.Body = txtNachricht.Text + Environment.NewLine + Environment.NewLine;
+            foreach (var connection in allConnections)
+            {
+                mail.Body = mail.Body + connection;
+            }
+
             mail.Subject = txtBetreff.Text;
             smtp.Send(mail);
 

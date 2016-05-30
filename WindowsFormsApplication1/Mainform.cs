@@ -157,8 +157,20 @@ namespace WindowsFormsApplication1
         //A008
         private void sendMail(object sender, EventArgs e)
         {
-            var temp = dgvConnections.SelectedRows[0].Cells[0].Value;
-            Mail mail = new Mail();
+            List<string> aList = new List<string>();
+
+            foreach (DataGridViewRow row in dgvConnections.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    aList.Add(cell.Value.ToString() + Environment.NewLine);
+                }
+            }
+
+            //var rowIndex = dgvConnections.SelectedCells[0].RowIndex;
+            //string temp = dgvConnections.Rows[rowIndex].Cells[0].Value.ToString() + dgvConnections.Rows[rowIndex].Cells[1].Value.ToString();
+
+            Mail mail = new Mail(aList);
             mail.Show();
         }
     }
