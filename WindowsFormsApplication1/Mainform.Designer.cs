@@ -40,8 +40,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnMaps = new System.Windows.Forms.Button();
             this.bntMail = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.dtpDatum = new System.Windows.Forms.DateTimePicker();
+            this.dtpZeit = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
@@ -179,29 +179,30 @@
             this.bntMail.TabIndex = 17;
             this.bntMail.Text = "Mail";
             this.bntMail.UseVisualStyleBackColor = true;
+            this.bntMail.Click += new System.EventHandler(this.sendMail);
             // 
-            // dateTimePicker1
+            // dtpDatum
             // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(83, 143);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
-            this.dateTimePicker1.MinDate = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(109, 22);
-            this.dateTimePicker1.TabIndex = 18;
-            this.dateTimePicker1.Value = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
+            this.dtpDatum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDatum.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDatum.Location = new System.Drawing.Point(83, 143);
+            this.dtpDatum.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.dtpDatum.MinDate = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
+            this.dtpDatum.Name = "dtpDatum";
+            this.dtpDatum.Size = new System.Drawing.Size(109, 22);
+            this.dtpDatum.TabIndex = 18;
+            this.dtpDatum.Value = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
             // 
-            // dateTimePicker2
+            // dtpZeit
             // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker2.Location = new System.Drawing.Point(83, 173);
-            this.dateTimePicker2.MinDate = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(87, 22);
-            this.dateTimePicker2.TabIndex = 19;
-            this.dateTimePicker2.Value = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
+            this.dtpZeit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpZeit.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpZeit.Location = new System.Drawing.Point(83, 173);
+            this.dtpZeit.MinDate = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
+            this.dtpZeit.Name = "dtpZeit";
+            this.dtpZeit.Size = new System.Drawing.Size(87, 22);
+            this.dtpZeit.TabIndex = 19;
+            this.dtpZeit.Value = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
             // 
             // label4
             // 
@@ -231,8 +232,8 @@
             this.ClientSize = new System.Drawing.Size(419, 505);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpZeit);
+            this.Controls.Add(this.dtpDatum);
             this.Controls.Add(this.bntMail);
             this.Controls.Add(this.btnMaps);
             this.Controls.Add(this.label3);
@@ -269,8 +270,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnMaps;
         private System.Windows.Forms.Button bntMail;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dtpDatum;
+        private System.Windows.Forms.DateTimePicker dtpZeit;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
     }

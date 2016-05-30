@@ -39,7 +39,7 @@ namespace WindowsFormsApplication1
             }
         }
 
-        //A002
+        //A002 + A005
         private void searchTimeTable(object sender, EventArgs e)
         {
             dt.Columns.Clear();
@@ -52,7 +52,9 @@ namespace WindowsFormsApplication1
 
             string fromStation = txtfromStation.Text;
             string toStation = txttoStation.Text;
-            var connections = transport.GetConnections(fromStation, toStation).ConnectionList;
+            DateTime date = dtpDatum.Value;
+            DateTime time = dtpZeit.Value;
+            var connections = transport.GetConnectionsviaDate(fromStation, toStation, date, time).ConnectionList;
 
             foreach (var connection in connections)
             {
@@ -150,6 +152,14 @@ namespace WindowsFormsApplication1
                     System.Diagnostics.Process.Start("https://www.google.ch/maps/place/" + x + "+" + y);
                 }
             }                        
+        }
+
+        //A008
+        private void sendMail(object sender, EventArgs e)
+        {
+            var temp = dgvConnections.SelectedRows[0].Cells[0].Value;
+            Mail mail = new Mail();
+            mail.Show();
         }
     }
 }
