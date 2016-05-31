@@ -20,105 +20,119 @@ namespace WindowsFormsApplication1
         public mainForm()
         {
             InitializeComponent();
+            //DateTimePickers auf aktuelles Datum und Uhrzeit setzten                    
             this.dtpDatum.Value = DateTime.Now;
             this.dtpZeit.Value = DateTime.Now;
-        }
-
-        //if radio button check changes
-        private void checkedChanged(object sender, EventArgs e)
-        {
-            if (rbTimeTable.Checked)
-            {
-                panelSearchStation.Visible = false;
-                btnMapsTo.Enabled = true;
-                txttoStation.Enabled = true;
-                btnTimeTable.Visible = true;
-
-            }
-            else if(rbDepartueTable.Checked)
-            {
-                btnDepartures.Visible = true;
-                btnMapsTo.Enabled = false;
-                txttoStation.Enabled = false;
-                btnTimeTable.Visible = false;
-                panelSearchStation.Visible = false;
-            }
-            else
-            {
-                panelSearchStation.Visible = true;
-            }
-            
-        }
+        }       
 
         //A002 + A005
+        //Verbindungen zwischen zwei Stationen suchen
         private void searchTimeTable(object sender, EventArgs e)
         {
+            //DataTable leeren
             dt.Columns.Clear();
             dt.Rows.Clear();
-            dt.Clear();
 
+            //dem DataTable Spalten hinzufügen
             dt.Columns.Add(new DataColumn("Bahnhof / Haltestelle", typeof(string)));
             dt.Columns.Add(new DataColumn("Zeit", typeof(string)));
             dt.Columns.Add(new DataColumn("Gleis", typeof(string)));
             dt.Columns.Add(new DataColumn("Dauer", typeof(string)));
 
+            //User-Inputs auslesen
             string fromStation = txtfromStation.Text;
             string toStation = txttoStation.Text;
             DateTime date = dtpDatum.Value;
             DateTime time = dtpZeit.Value;
 
-            var connections = transport.GetConnectionsviaDate(fromStation, toStation, date, time).ConnectionList;
-
-            foreach (var connection in connections)
+            try
             {
-                dgvConnections.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                dt.Rows.Add(connection.From.Station.Name + Environment.NewLine + connection.To.Station.Name, 
-                    "ab " + Convert.ToDateTime(connection.From.Departure).ToShortTimeString() + Environment.NewLine + 
-                    "an " + Convert.ToDateTime(connection.To.Arrival).ToShortTimeString(), connection.From.Platform + 
-                    Environment.NewLine + connection.To.Platform, connection.Duration.Substring(3));
+                var connections = transport.GetConnectionsviaDate(fromStation, toStation, date, time).ConnectionList;
 
-                dgvConnections.DataSource = dt;
-                dgvConnections.Columns[1].Width = 65;
-                dgvConnections.Columns[2].Width = 55;
-                dgvConnections.Columns[3].Width = 50;
+                foreach (var connection in connections)
+                {
+                    //WrapMode ändern, damit Zeilenumbrüche gemacht werden können
+                    dgvConnections.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                    //Verbindungen dem DataTable hinzufügen
+                    dt.Rows.Add(connection.From.Station.Name + Environment.NewLine + connection.To.Station.Name,
+                        "ab " + Convert.ToDateTime(connection.From.Departure).ToShortTimeString() + Environment.NewLine +
+                        "an " + Convert.ToDateTime(connection.To.Arrival).ToShortTimeString(), connection.From.Platform +
+                        Environment.NewLine + connection.To.Platform, connection.Duration.Substring(3));
+
+                    //DataTable als Source dem DataGridView hinzufügen 
+                    dgvConnections.DataSource = dt;
+                    //Spaltenbreite definieren
+                    dgvConnections.Columns[1].Width = 65;
+                    dgvConnections.Columns[2].Width = 55;
+                    dgvConnections.Columns[3].Width = 50;
+                }
+            }
+            catch(ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Bitte geben Sie eine Start- bzw. Endstation ein.");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Verbindungen können nicht angezeigt werden." + ex);
             }
         }
 
         //A003
+        //Abfahrten einer Station anzeigen
         private void searchDepatures(object sender, EventArgs e)
         {
+            //DataTable leeren
             dt.Columns.Clear();
             dt.Rows.Clear();
-            dt.Clear();
 
+            //dem DataTable Spalten hinzufügen
             dt.Columns.Add(new DataColumn("Linie", typeof(string)));
             dt.Columns.Add(new DataColumn("Ziel", typeof(string)));
-            //dt.Columns.Add(new DataColumn("Gleis", typeof(string)));
             dt.Columns.Add(new DataColumn("Abfahrt", typeof(string)));
 
+            //User-Inputs auslesen
             string station = txtfromStation.Text;
             DateTime date = dtpDatum.Value; 
             DateTime time = dtpZeit.Value;
-            var stationBoard = transport.GetStationBoardviaDateTime(station, transport.GetStations(station).StationList[0].Id, date, time).Entries;
 
-            foreach (var connection in stationBoard)
+            try
             {
-                dgvConnections.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                dt.Rows.Add(connection.Name, connection.To, Convert.ToDateTime(connection.Stop.Departure).ToShortTimeString());
+                var stationBoard = transport.GetStationBoardviaDateTime(station, transport.GetStations(station).StationList[0].Id, date, time).Entries;
 
-                dgvConnections.DataSource = dt;
+                foreach (var connection in stationBoard)
+                {
+                    //Abfahrten dem DataTable hinzufügen
+                    dt.Rows.Add(connection.Name, connection.To, Convert.ToDateTime(connection.Stop.Departure).ToShortTimeString());
+
+                    //DataTable als Source dem DataGridView hinzufügen 
+                    dgvConnections.DataSource = dt;
+                }
             }
+            catch(ArgumentOutOfRangeException)
+            {
+                MessageBox.Show("Bitte geben Sie eine Station ein.");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Abfahrten können nicht angezeigt werden." + ex);
+            }
+            
         }
 
         //A004
+        //Auto Complete
         private void showAutoCompletion(object sender, KeyEventArgs e)
         {
+            //überprüfen, in welcher Textbox der User ist
             string station = "";
             if (txtfromStation.Focused)
             {
+                //User-Input auslesen
                 station = txtfromStation.Text;
+                //bei User-Input von mehr als 3 Zeichen..
                 if (station.Length == 3)
                 {
+                    //..AutoComplete hinzufügen
                     txtfromStation.AutoCompleteCustomSource = autoComplete(station);
                     txtfromStation.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     txtfromStation.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -126,9 +140,12 @@ namespace WindowsFormsApplication1
             }
             else
             {
+                //User-Input auslesen
                 station = txttoStation.Text;
+                //bei User-Input von mehr als 3 Zeichen..
                 if (station.Length == 3)
                 {
+                    //..AutoComplete hinzufügen
                     txttoStation.AutoCompleteCustomSource = autoComplete(station);
                     txttoStation.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     txttoStation.AutoCompleteSource = AutoCompleteSource.CustomSource;
@@ -139,9 +156,9 @@ namespace WindowsFormsApplication1
         public AutoCompleteStringCollection autoComplete(string value)
         {
             var collection = new AutoCompleteStringCollection();
-
             var transportList = transport.GetStations(value).StationList;
 
+            //alle Stationen der Collection hinzufügen
             foreach (var station in transportList)
             {
                 collection.Add(station.Name);
@@ -150,75 +167,45 @@ namespace WindowsFormsApplication1
         }
 
         //A006
+        //Station auf Google Maps anzeigen
         private void showOnMaps(object sender, EventArgs e)
-        {
-            
+        {            
             string station = "";
 
+            //überprüfen, welcher Button geklickt wurde
             if (btnMapsFrom.Focused)
                 station = txtfromStation.Text;
             else
-                station = txttoStation.Text;
+                station = txttoStation.Text;           
 
-            var transportList = transport.GetStations(station).StationList;
+            try
+            {
+                //Koordinaten auslesen
+                double x = transport.GetStations(station).StationList[0].Coordinate.XCoordinate;
+                double y = transport.GetStations(station).StationList[0].Coordinate.YCoordinate;
 
-            if (station == "")
-            {
-                MessageBox.Show("Bitte Station eingeben.");
-            }
-            else
-            {
-                double x = transportList[0].Coordinate.XCoordinate;
-                double y = transportList[0].Coordinate.YCoordinate;
                 Maps maps = new Maps(x,y);
                 maps.ShowDialog();
             }
-        }
-
-        //A008
-        private void sendMail(object sender, EventArgs e)
-        {
-            List<string> aList = new List<string>();
-
-            foreach (DataGridViewRow row in dgvConnections.Rows)
+            catch (ArgumentOutOfRangeException)
             {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    aList.Add(cell.Value.ToString() + Environment.NewLine);
-                }
+                MessageBox.Show("Bitte geben Sie eine Station ein");
             }
-
-            //var rowIndex = dgvConnections.SelectedCells[0].RowIndex;
-            //var allCells = dgvConnections.Rows[rowIndex].Cells;
-            //string temp = "";
-            //foreach(var cell in allCells)
-            //{
-            //    temp = temp + dgvConnections.Rows[rowIndex].Cells; //dgvConnections.Rows[rowIndex].Cells[0].Value.ToString() + dgvConnections.Rows[rowIndex].Cells[1].Value.ToString();
-            //}            
-
-            Mail mail = new Mail(aList);
-            mail.ShowDialog();
         }
 
-        private void llblMail_MouseHover(object sender, EventArgs e)
-        {
-            llblMail.LinkColor = Color.Blue;
-        }
-
-        private void llblMail_MouseLeave(object sender, EventArgs e)
-        {
-            llblMail.LinkColor = Color.Black;
-        }
-
+        //A007
+        //die nahste Station finden
         private void searchStation(object sender, EventArgs e)
         {
+            //DataTable leeren
             dt.Columns.Clear();
             dt.Rows.Clear();
-            dt.Clear();
 
+            //dem DataTable Spalten hinzufügen
             dt.Columns.Add(new DataColumn("Station", typeof(string)));
             dt.Columns.Add(new DataColumn("Distanz (in Meter)", typeof(string)));
 
+            //Koordinaten auslesen
             string xy = transport.getCoordinates(txtAdresse.Text + "," + txtPlz.Text + " " + txtOrt.Text);
             string x = xy.Substring(0, xy.LastIndexOf(','));
             string y = xy.Substring(xy.IndexOf(' ') + 1);
@@ -227,10 +214,72 @@ namespace WindowsFormsApplication1
 
             foreach (var station in stationList)
             {
-                dgvConnections.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                dt.Rows.Add(station.Name, station.Distance);
-
+                //jede Station dem DataTable hinzufügen
+                dt.Rows.Add(station.Name, station.Distance);                
+                //DataTable als Source dem DataGridView hinzufügen 
                 dgvConnections.DataSource = dt;
+            }
+        }
+
+        //A008
+        //Mail mit den Verbindungen versenden
+        private void sendMail(object sender, EventArgs e)
+        {
+            
+            StringBuilder mailBody = new StringBuilder();
+            //Header dem Stringbuilder hinzufügen
+            foreach (DataGridViewColumn col in dgvConnections.Columns)
+            {
+                mailBody.AppendFormat("<th>" + col.HeaderText + "</th>");
+            }
+            //Zeilen dem Stringbuilder hinzufügen
+            foreach (DataGridViewRow row in dgvConnections.Rows)
+            {
+                mailBody.Append("<tr>");
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    mailBody.Append("<td>" + cell.Value + "</td>");
+                }
+                mailBody.Append("</tr>");
+            }
+            mailBody.Append("</table>");           
+
+            Mail mail = new Mail(mailBody.ToString());
+            mail.ShowDialog();
+        }
+
+        //Hover über dem 'per Mail teilen'
+        private void llblMail_MouseHover(object sender, EventArgs e)
+        {
+            llblMail.LinkColor = Color.Blue;
+        }
+        private void llblMail_MouseLeave(object sender, EventArgs e)
+        {
+            llblMail.LinkColor = Color.Black;
+        }
+
+        //RadioButton ändert, dann..
+        private void checkedChanged(object sender, EventArgs e)
+        {
+            if (rbTimeTable.Checked)
+            {
+                panelSearchStation.Visible = false;
+                btnMapsTo.Enabled = true;
+                txttoStation.Enabled = true;
+                btnTimeTable.Visible = true;
+
+            }
+            else if (rbDepartueTable.Checked)
+            {
+                btnDepartures.Visible = true;
+                btnMapsTo.Enabled = false;
+                txttoStation.Enabled = false;
+                btnTimeTable.Visible = false;
+                panelSearchStation.Visible = false;
+            }
+            else
+            {
+                panelSearchStation.Visible = true;
             }
         }
     }

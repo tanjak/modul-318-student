@@ -314,7 +314,7 @@
             this.txtOrt.Location = new System.Drawing.Point(57, 65);
             this.txtOrt.Name = "txtOrt";
             this.txtOrt.Size = new System.Drawing.Size(213, 22);
-            this.txtOrt.TabIndex = 2;
+            this.txtOrt.TabIndex = 10;
             // 
             // txtAdresse
             // 
@@ -340,7 +340,7 @@
             this.btnSearchStation.Location = new System.Drawing.Point(9, 138);
             this.btnSearchStation.Name = "btnSearchStation";
             this.btnSearchStation.Size = new System.Drawing.Size(120, 23);
-            this.btnSearchStation.TabIndex = 24;
+            this.btnSearchStation.TabIndex = 11;
             this.btnSearchStation.Text = "Station suchen";
             this.btnSearchStation.UseVisualStyleBackColor = true;
             this.btnSearchStation.Click += new System.EventHandler(this.searchStation);

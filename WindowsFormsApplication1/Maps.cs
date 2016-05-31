@@ -27,7 +27,16 @@ namespace WindowsFormsApplication1
 
         private void onFormLoad(object sender, EventArgs e)
         {
-            wbMaps.Navigate("https://www.google.ch/maps/place/" + x + "+" + y);
+            try
+            {
+                //Google Maps mit Koordinaten öffnen
+                wbMaps.Navigate("https://www.google.ch/maps/place/" + x + "+" + y);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Google Maps kann nicht geladen werden." + ex);
+            }
+            
         }
     }
 }

@@ -14,9 +14,9 @@ namespace WindowsFormsApplication1
 {
     public partial class Mail : Form
     {
-        List<string> allConnections;
+        string allConnections;
 
-        public Mail(List<string> Connections)
+        public Mail(string Connections)
         {
             InitializeComponent();
             allConnections = Connections;
@@ -26,31 +26,31 @@ namespace WindowsFormsApplication1
         {
             try
             {
-                MailMessage mail = new MailMessage();
-                mail.From = new System.Net.Mail.MailAddress(txtVon.Text);
+                //Mail mit Sender und Empfänger initialisieren
+                MailMessage mail = new MailMessage(txtAn.Text, txtAn.Text);
+                //SmtpClient initisalisier
                 SmtpClient smtp = new SmtpClient();
-                smtp.Port = 587;
-                smtp.EnableSsl = true;
+                //dem SmtpClient hinzufügen
                 smtp.Credentials = new NetworkCredential(txtVon.Text, txtPasswort.Text);
+                //Einstellungen konfigurieren
+                smtp.Port = 587;                 
                 smtp.Host = "smtp.gmail.com";
-                mail.To.Add(new MailAddress(txtAn.Text));
-                mainForm form = new mainForm();
-                mail.Body = txtNachricht.Text + Environment.NewLine + Environment.NewLine;
-                foreach (var connection in allConnections)
-                {
-                    mail.Body = mail.Body + connection;
-                }
-
+                smtp.EnableSsl = true;                
+                mail.IsBodyHtml = true;
+                //Nachricht des Mails hinzufügen
+                mail.Body = txtNachricht.Text + Environment.NewLine + Environment.NewLine + allConnections;
+                //Betreff hinzufügen
                 mail.Subject = txtBetreff.Text;
+                //Mail senden
                 smtp.Send(mail);
 
                 MessageBox.Show("Mail erfolgreich versendet!");
 
                 this.Close();
             }            
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("Mail konnte nicht versendet werden. Überprüfen Sie die eingegebenen Daten.");
+                MessageBox.Show("Mail konnte nicht versendet werden." + ex);
             }            
         }
     }
