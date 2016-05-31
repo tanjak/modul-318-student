@@ -2,6 +2,8 @@
 using System.Net;
 using Newtonsoft.Json;
 using System;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace SwissTransport
 {
@@ -64,7 +66,7 @@ namespace SwissTransport
 
             webProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
             request.Proxy = webProxy;
-            
+
             return request;
         }
 
@@ -102,7 +104,7 @@ namespace SwissTransport
             return null;
         }
 
-        public StationBoardRoot getNearestStation(double x, double y)
+        public Stations getNearestStation(double x, double y)
         {
             var request = CreateWebRequest("http://transport.opendata.ch/v1/locations?x=" + x + "&y=" + y);
             var response = request.GetResponse();
@@ -111,16 +113,31 @@ namespace SwissTransport
             if (responseStream != null)
             {
                 var readToEnd = new StreamReader(responseStream).ReadToEnd();
-                var stationboard =
-                    JsonConvert.DeserializeObject<StationBoardRoot>(readToEnd);
-                return stationboard;
+                var station =
+                    JsonConvert.DeserializeObject<Stations>(readToEnd);
+                return station;
             }
 
             return null;
         }
-        public 
-        //zum koordinaten
-        //http://transport.opendata.ch/v1/locations?x=46.946807&y=8.009079
-        
+
+        public string getCoordinates(string address)
+        {
+            var request = CreateWebRequest("http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address=" + address);
+            var response = request.GetResponse();
+            var responseStream = response.GetResponseStream();
+
+            XDocument document = XDocument.Load(new StreamReader(responseStream));
+
+            XElement longitudeElement = document.Descendants("lng").FirstOrDefault();
+            XElement latitudeElement = document.Descendants("lat").FirstOrDefault();
+
+            if (longitudeElement != null && latitudeElement != null)
+            {
+                return latitudeElement.Value.ToString() + ", " + longitudeElement.Value.ToString();
+            }
+
+            return null;
+        }
     }
 }

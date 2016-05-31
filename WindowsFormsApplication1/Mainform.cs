@@ -29,18 +29,25 @@ namespace WindowsFormsApplication1
         {
             if (rbTimeTable.Checked)
             {
-                btnTimeTable.Visible = true;
-                txttoStation.Enabled = true;
+                panelSearchStation.Visible = false;
                 btnMapsTo.Enabled = true;
-                btnDepartures.Visible = false;
+                txttoStation.Enabled = true;
+                btnTimeTable.Visible = true;
+
+            }
+            else if(rbDepartueTable.Checked)
+            {
+                btnDepartures.Visible = true;
+                btnMapsTo.Enabled = false;
+                txttoStation.Enabled = false;
+                btnTimeTable.Visible = false;
+                panelSearchStation.Visible = false;
             }
             else
             {
-                btnDepartures.Visible = true;
-                btnTimeTable.Visible = false;
-                txttoStation.Enabled = false;
-                btnMapsTo.Enabled = false;
+                panelSearchStation.Visible = true;
             }
+            
         }
 
         //A002 + A005
@@ -73,7 +80,7 @@ namespace WindowsFormsApplication1
                 dgvConnections.DataSource = dt;
                 dgvConnections.Columns[1].Width = 65;
                 dgvConnections.Columns[2].Width = 55;
-                dgvConnections.Columns[3].Width = 50;   
+                dgvConnections.Columns[3].Width = 50;
             }
         }
 
@@ -145,16 +152,13 @@ namespace WindowsFormsApplication1
         //A006
         private void showOnMaps(object sender, EventArgs e)
         {
+            
             string station = "";
+
             if (btnMapsFrom.Focused)
-            {
-                station = txtfromStation.Text;  
-            }
+                station = txtfromStation.Text;
             else
-            {
                 station = txttoStation.Text;
-                
-            }
 
             var transportList = transport.GetStations(station).StationList;
 
@@ -164,13 +168,10 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                DialogResult dialogResult = MessageBox.Show("Applikation wird verlassen. Fortfahren?", "Achtung!", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    double x = transportList[0].Coordinate.XCoordinate;
-                    double y = transportList[0].Coordinate.YCoordinate;
-                    System.Diagnostics.Process.Start("https://www.google.ch/maps/place/" + x + "+" + y);
-                }
+                double x = transportList[0].Coordinate.XCoordinate;
+                double y = transportList[0].Coordinate.YCoordinate;
+                Maps maps = new Maps(x,y);
+                maps.ShowDialog();
             }
         }
 
@@ -188,10 +189,49 @@ namespace WindowsFormsApplication1
             }
 
             //var rowIndex = dgvConnections.SelectedCells[0].RowIndex;
-            //string temp = dgvConnections.Rows[rowIndex].Cells[0].Value.ToString() + dgvConnections.Rows[rowIndex].Cells[1].Value.ToString();
+            //var allCells = dgvConnections.Rows[rowIndex].Cells;
+            //string temp = "";
+            //foreach(var cell in allCells)
+            //{
+            //    temp = temp + dgvConnections.Rows[rowIndex].Cells; //dgvConnections.Rows[rowIndex].Cells[0].Value.ToString() + dgvConnections.Rows[rowIndex].Cells[1].Value.ToString();
+            //}            
 
             Mail mail = new Mail(aList);
-            mail.Show();
+            mail.ShowDialog();
+        }
+
+        private void llblMail_MouseHover(object sender, EventArgs e)
+        {
+            llblMail.LinkColor = Color.Blue;
+        }
+
+        private void llblMail_MouseLeave(object sender, EventArgs e)
+        {
+            llblMail.LinkColor = Color.Black;
+        }
+
+        private void searchStation(object sender, EventArgs e)
+        {
+            dt.Columns.Clear();
+            dt.Rows.Clear();
+            dt.Clear();
+
+            dt.Columns.Add(new DataColumn("Station", typeof(string)));
+            dt.Columns.Add(new DataColumn("Distanz (in Meter)", typeof(string)));
+
+            string xy = transport.getCoordinates(txtAdresse.Text + "," + txtPlz.Text + " " + txtOrt.Text);
+            string x = xy.Substring(0, xy.LastIndexOf(','));
+            string y = xy.Substring(xy.IndexOf(' ') + 1);
+
+            var stationList = transport.getNearestStation(Convert.ToDouble(x), Convert.ToDouble(y)).StationList;
+
+            foreach (var station in stationList)
+            {
+                dgvConnections.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+                dt.Rows.Add(station.Name, station.Distance);
+
+                dgvConnections.DataSource = dt;
+            }
         }
     }
 }
