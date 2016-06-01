@@ -37,8 +37,8 @@ namespace WindowsFormsApplication1
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;                
                 mail.IsBodyHtml = true;
-                //Nachricht des Mails hinzufügen
-                mail.Body = txtNachricht.Text + Environment.NewLine + Environment.NewLine + allConnections;
+                //Nachricht und Verbindungen dem Mails hinzufügen
+                mail.Body = txtNachricht.Text.Replace("\r\n", "<br />") + Environment.NewLine + Environment.NewLine + allConnections;
                 //Betreff hinzufügen
                 mail.Subject = txtBetreff.Text;
                 //Mail senden

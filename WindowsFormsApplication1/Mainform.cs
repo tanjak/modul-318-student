@@ -29,15 +29,18 @@ namespace WindowsFormsApplication1
         //Verbindungen zwischen zwei Stationen suchen
         private void searchTimeTable(object sender, EventArgs e)
         {
+            //Cursor auf Sanduhr ändern
+            Cursor.Current = Cursors.WaitCursor;
+
             //DataTable leeren
             dt.Columns.Clear();
             dt.Rows.Clear();
 
             //dem DataTable Spalten hinzufügen
-            dt.Columns.Add(new DataColumn("Bahnhof / Haltestelle", typeof(string)));
-            dt.Columns.Add(new DataColumn("Zeit", typeof(string)));
-            dt.Columns.Add(new DataColumn("Gleis", typeof(string)));
-            dt.Columns.Add(new DataColumn("Dauer", typeof(string)));
+            dt.Columns.Add(new DataColumn("Bahnhof / Haltestelle"));
+            dt.Columns.Add(new DataColumn("Zeit"));
+            dt.Columns.Add(new DataColumn("Gleis"));
+            dt.Columns.Add(new DataColumn("Dauer"));
 
             //User-Inputs auslesen
             string fromStation = txtfromStation.Text;
@@ -66,14 +69,14 @@ namespace WindowsFormsApplication1
                     dgvConnections.Columns[2].Width = 55;
                     dgvConnections.Columns[3].Width = 50;
                 }
-            }
-            catch(ArgumentOutOfRangeException)
-            {
-                MessageBox.Show("Bitte geben Sie eine Start- bzw. Endstation ein.");
-            }
+            }            
             catch(Exception ex)
             {
                 MessageBox.Show("Verbindungen können nicht angezeigt werden." + ex);
+            }
+            if (dgvConnections.RowCount == 0)
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Start- bzw. Endstation ein.");
             }
         }
 
@@ -81,23 +84,26 @@ namespace WindowsFormsApplication1
         //Abfahrten einer Station anzeigen
         private void searchDepatures(object sender, EventArgs e)
         {
+            //Cursor auf Sanduhr ändern
+            Cursor.Current = Cursors.WaitCursor;
+
             //DataTable leeren
             dt.Columns.Clear();
             dt.Rows.Clear();
 
             //dem DataTable Spalten hinzufügen
-            dt.Columns.Add(new DataColumn("Linie", typeof(string)));
-            dt.Columns.Add(new DataColumn("Ziel", typeof(string)));
-            dt.Columns.Add(new DataColumn("Abfahrt", typeof(string)));
+            dt.Columns.Add(new DataColumn("Linie"));
+            dt.Columns.Add(new DataColumn("Ziel"));
+            dt.Columns.Add(new DataColumn("Abfahrt"));
 
-            //User-Inputs auslesen
-            string station = txtfromStation.Text;
-            DateTime date = dtpDatum.Value; 
-            DateTime time = dtpZeit.Value;
-
-            try
-            {
+            try {
+                //User-Inputs auslesen
+                string station = txtfromStation.Text;
+                DateTime date = dtpDatum.Value; 
+                DateTime time = dtpZeit.Value;
+            
                 var stationBoard = transport.GetStationBoardviaDateTime(station, transport.GetStations(station).StationList[0].Id, date, time).Entries;
+                                
 
                 foreach (var connection in stationBoard)
                 {
@@ -110,12 +116,13 @@ namespace WindowsFormsApplication1
             }
             catch(ArgumentOutOfRangeException)
             {
-                MessageBox.Show("Bitte geben Sie eine Station ein.");
+                MessageBox.Show("Bitte geben Sie eine gültige Station ein.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Abfahrten können nicht angezeigt werden." + ex);
             }
+            
             
         }
 
@@ -189,7 +196,7 @@ namespace WindowsFormsApplication1
             }
             catch (ArgumentOutOfRangeException)
             {
-                MessageBox.Show("Bitte geben Sie eine Station ein");
+                MessageBox.Show("Bitte geben Sie eine gültige Station ein");
             }
         }
 
@@ -197,28 +204,39 @@ namespace WindowsFormsApplication1
         //die nahste Station finden
         private void searchStation(object sender, EventArgs e)
         {
+            //Cursor auf Sanduhr ändern
+            Cursor.Current = Cursors.WaitCursor;
+
             //DataTable leeren
             dt.Columns.Clear();
             dt.Rows.Clear();
 
             //dem DataTable Spalten hinzufügen
-            dt.Columns.Add(new DataColumn("Station", typeof(string)));
-            dt.Columns.Add(new DataColumn("Distanz (in Meter)", typeof(string)));
+            dt.Columns.Add(new DataColumn("Station"));
+            dt.Columns.Add(new DataColumn("Distanz (in Meter)"));
 
-            //Koordinaten auslesen
-            string xy = transport.getCoordinates(txtAdresse.Text + "," + txtPlz.Text + " " + txtOrt.Text);
-            string x = xy.Substring(0, xy.LastIndexOf(','));
-            string y = xy.Substring(xy.IndexOf(' ') + 1);
-
-            var stationList = transport.getNearestStation(Convert.ToDouble(x), Convert.ToDouble(y)).StationList;
-
-            foreach (var station in stationList)
+            try
             {
-                //jede Station dem DataTable hinzufügen
-                dt.Rows.Add(station.Name, station.Distance);                
-                //DataTable als Source dem DataGridView hinzufügen 
-                dgvConnections.DataSource = dt;
+                //Koordinaten auslesen
+                string xy = transport.getCoordinates(txtAdresse.Text + "," + txtPlz.Text + " " + txtOrt.Text);
+                string x = xy.Substring(0, xy.LastIndexOf(','));
+                string y = xy.Substring(xy.IndexOf(' ') + 1);
+
+                var stationList = transport.getNearestStation(Convert.ToDouble(x), Convert.ToDouble(y)).StationList;
+
+                foreach (var station in stationList)
+                {
+                    //jede Station dem DataTable hinzufügen
+                    dt.Rows.Add(station.Name, station.Distance);
+                    //DataTable als Source dem DataGridView hinzufügen 
+                    dgvConnections.DataSource = dt;
+                }
             }
+            catch(NullReferenceException)
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Adresse ein.");
+            }
+            
         }
 
         //A008

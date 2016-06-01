@@ -48,13 +48,14 @@
             this.rbSearchStation = new System.Windows.Forms.RadioButton();
             this.panelTimeTabel = new System.Windows.Forms.Panel();
             this.panelSearchStation = new System.Windows.Forms.Panel();
-            this.txtPlz = new System.Windows.Forms.TextBox();
-            this.txtOrt = new System.Windows.Forms.TextBox();
-            this.txtAdresse = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.btnSearchStation = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.btnSearchStation = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtAdresse = new System.Windows.Forms.TextBox();
+            this.txtOrt = new System.Windows.Forms.TextBox();
+            this.txtPlz = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
             this.panelTimeTabel.SuspendLayout();
             this.panelSearchStation.SuspendLayout();
@@ -287,6 +288,7 @@
             // 
             // panelSearchStation
             // 
+            this.panelSearchStation.Controls.Add(this.label6);
             this.panelSearchStation.Controls.Add(this.label8);
             this.panelSearchStation.Controls.Add(this.label13);
             this.panelSearchStation.Controls.Add(this.btnSearchStation);
@@ -300,39 +302,25 @@
             this.panelSearchStation.TabIndex = 30;
             this.panelSearchStation.Visible = false;
             // 
-            // txtPlz
+            // label8
             // 
-            this.txtPlz.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPlz.Location = new System.Drawing.Point(57, 37);
-            this.txtPlz.Name = "txtPlz";
-            this.txtPlz.Size = new System.Drawing.Size(43, 22);
-            this.txtPlz.TabIndex = 9;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(8, 91);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(25, 16);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Ort";
             // 
-            // txtOrt
+            // label13
             // 
-            this.txtOrt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtOrt.Location = new System.Drawing.Point(57, 65);
-            this.txtOrt.Name = "txtOrt";
-            this.txtOrt.Size = new System.Drawing.Size(213, 22);
-            this.txtOrt.TabIndex = 10;
-            // 
-            // txtAdresse
-            // 
-            this.txtAdresse.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtAdresse.Location = new System.Drawing.Point(57, 7);
-            this.txtAdresse.Name = "txtAdresse";
-            this.txtAdresse.Size = new System.Drawing.Size(213, 22);
-            this.txtAdresse.TabIndex = 8;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(6, 40);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(32, 16);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "PLZ";
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(6, 12);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(27, 16);
+            this.label13.TabIndex = 4;
+            this.label13.Text = "Str.";
             // 
             // btnSearchStation
             // 
@@ -345,25 +333,49 @@
             this.btnSearchStation.UseVisualStyleBackColor = true;
             this.btnSearchStation.Click += new System.EventHandler(this.searchStation);
             // 
-            // label13
+            // label14
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(6, 13);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(27, 16);
-            this.label13.TabIndex = 4;
-            this.label13.Text = "Str.";
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(6, 40);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(32, 16);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "PLZ";
             // 
-            // label8
+            // txtAdresse
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(8, 71);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(25, 16);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Ort";
+            this.txtAdresse.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtAdresse.Location = new System.Drawing.Point(57, 7);
+            this.txtAdresse.Name = "txtAdresse";
+            this.txtAdresse.Size = new System.Drawing.Size(213, 22);
+            this.txtAdresse.TabIndex = 8;
+            // 
+            // txtOrt
+            // 
+            this.txtOrt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtOrt.Location = new System.Drawing.Point(57, 85);
+            this.txtOrt.Name = "txtOrt";
+            this.txtOrt.Size = new System.Drawing.Size(213, 22);
+            this.txtOrt.TabIndex = 10;
+            // 
+            // txtPlz
+            // 
+            this.txtPlz.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPlz.Location = new System.Drawing.Point(57, 37);
+            this.txtPlz.Name = "txtPlz";
+            this.txtPlz.Size = new System.Drawing.Size(43, 22);
+            this.txtPlz.TabIndex = 9;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(54, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 16);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "- oder -";
             // 
             // mainForm
             // 
@@ -381,7 +393,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "mainForm";
-            this.Text = " ";
+            this.Text = " ÖV Applikation";
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).EndInit();
             this.panelTimeTabel.ResumeLayout(false);
             this.panelTimeTabel.PerformLayout();
@@ -421,6 +433,7 @@
         private System.Windows.Forms.TextBox txtAdresse;
         private System.Windows.Forms.TextBox txtOrt;
         private System.Windows.Forms.TextBox txtPlz;
+        private System.Windows.Forms.Label label6;
     }
 }
 
