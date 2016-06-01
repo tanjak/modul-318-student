@@ -102,7 +102,7 @@
             this.txtNachricht.Location = new System.Drawing.Point(35, 159);
             this.txtNachricht.Multiline = true;
             this.txtNachricht.Name = "txtNachricht";
-            this.txtNachricht.Size = new System.Drawing.Size(233, 113);
+            this.txtNachricht.Size = new System.Drawing.Size(233, 152);
             this.txtNachricht.TabIndex = 5;
             // 
             // label4
@@ -136,7 +136,7 @@
             // btnSenden
             // 
             this.btnSenden.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSenden.Location = new System.Drawing.Point(110, 288);
+            this.btnSenden.Location = new System.Drawing.Point(101, 324);
             this.btnSenden.Name = "btnSenden";
             this.btnSenden.Size = new System.Drawing.Size(75, 23);
             this.btnSenden.TabIndex = 6;
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(302, 328);
+            this.ClientSize = new System.Drawing.Size(302, 359);
             this.Controls.Add(this.btnSenden);
             this.Controls.Add(this.txtBetreff);
             this.Controls.Add(this.label5);

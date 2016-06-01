@@ -67,7 +67,7 @@
             this.btnTimeTable.Location = new System.Drawing.Point(9, 138);
             this.btnTimeTable.Name = "btnTimeTable";
             this.btnTimeTable.Size = new System.Drawing.Size(120, 23);
-            this.btnTimeTable.TabIndex = 0;
+            this.btnTimeTable.TabIndex = 5;
             this.btnTimeTable.Text = "Fahrplan suchen";
             this.btnTimeTable.UseVisualStyleBackColor = true;
             this.btnTimeTable.Click += new System.EventHandler(this.searchTimeTable);
@@ -98,7 +98,7 @@
             this.txtfromStation.Location = new System.Drawing.Point(57, 7);
             this.txtfromStation.Name = "txtfromStation";
             this.txtfromStation.Size = new System.Drawing.Size(213, 22);
-            this.txtfromStation.TabIndex = 8;
+            this.txtfromStation.TabIndex = 1;
             this.txtfromStation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.showAutoCompletion);
             // 
             // txttoStation
@@ -107,7 +107,7 @@
             this.txttoStation.Location = new System.Drawing.Point(57, 37);
             this.txttoStation.Name = "txttoStation";
             this.txttoStation.Size = new System.Drawing.Size(213, 22);
-            this.txttoStation.TabIndex = 9;
+            this.txttoStation.TabIndex = 2;
             this.txttoStation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.showAutoCompletion);
             // 
             // dgvConnections
@@ -147,7 +147,7 @@
             this.rbTimeTable.Location = new System.Drawing.Point(48, 22);
             this.rbTimeTable.Name = "rbTimeTable";
             this.rbTimeTable.Size = new System.Drawing.Size(103, 29);
-            this.rbTimeTable.TabIndex = 13;
+            this.rbTimeTable.TabIndex = 0;
             this.rbTimeTable.TabStop = true;
             this.rbTimeTable.Text = "Fahrplan";
             this.rbTimeTable.UseVisualStyleBackColor = true;
@@ -160,7 +160,7 @@
             this.rbDepartueTable.Location = new System.Drawing.Point(147, 24);
             this.rbDepartueTable.Name = "rbDepartueTable";
             this.rbDepartueTable.Size = new System.Drawing.Size(119, 24);
-            this.rbDepartueTable.TabIndex = 14;
+            this.rbDepartueTable.TabIndex = 9;
             this.rbDepartueTable.Text = "Abfahrtstafel";
             this.rbDepartueTable.UseVisualStyleBackColor = true;
             this.rbDepartueTable.CheckedChanged += new System.EventHandler(this.checkedChanged);
@@ -182,7 +182,7 @@
             this.dtpDatum.MinDate = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
             this.dtpDatum.Name = "dtpDatum";
             this.dtpDatum.Size = new System.Drawing.Size(109, 22);
-            this.dtpDatum.TabIndex = 18;
+            this.dtpDatum.TabIndex = 3;
             this.dtpDatum.Value = new System.DateTime(2016, 5, 25, 15, 53, 6, 0);
             // 
             // dtpZeit
@@ -194,7 +194,7 @@
             this.dtpZeit.Name = "dtpZeit";
             this.dtpZeit.ShowUpDown = true;
             this.dtpZeit.Size = new System.Drawing.Size(87, 22);
-            this.dtpZeit.TabIndex = 19;
+            this.dtpZeit.TabIndex = 4;
             this.dtpZeit.Value = new System.DateTime(2016, 5, 30, 14, 14, 38, 0);
             // 
             // label4
@@ -223,7 +223,7 @@
             this.btnMapsFrom.Location = new System.Drawing.Point(290, 6);
             this.btnMapsFrom.Name = "btnMapsFrom";
             this.btnMapsFrom.Size = new System.Drawing.Size(69, 23);
-            this.btnMapsFrom.TabIndex = 22;
+            this.btnMapsFrom.TabIndex = 6;
             this.btnMapsFrom.Text = "Maps";
             this.btnMapsFrom.UseVisualStyleBackColor = true;
             this.btnMapsFrom.Click += new System.EventHandler(this.showOnMaps);
@@ -234,7 +234,7 @@
             this.btnMapsTo.Location = new System.Drawing.Point(290, 36);
             this.btnMapsTo.Name = "btnMapsTo";
             this.btnMapsTo.Size = new System.Drawing.Size(69, 23);
-            this.btnMapsTo.TabIndex = 23;
+            this.btnMapsTo.TabIndex = 7;
             this.btnMapsTo.Text = "Maps";
             this.btnMapsTo.UseVisualStyleBackColor = true;
             this.btnMapsTo.Click += new System.EventHandler(this.showOnMaps);
@@ -248,7 +248,7 @@
             this.llblMail.Location = new System.Drawing.Point(303, 238);
             this.llblMail.Name = "llblMail";
             this.llblMail.Size = new System.Drawing.Size(91, 16);
-            this.llblMail.TabIndex = 25;
+            this.llblMail.TabIndex = 8;
             this.llblMail.TabStop = true;
             this.llblMail.Text = "per Mail teilen";
             this.llblMail.Click += new System.EventHandler(this.sendMail);
@@ -262,13 +262,12 @@
             this.rbSearchStation.Location = new System.Drawing.Point(277, 24);
             this.rbSearchStation.Name = "rbSearchStation";
             this.rbSearchStation.Size = new System.Drawing.Size(129, 24);
-            this.rbSearchStation.TabIndex = 26;
+            this.rbSearchStation.TabIndex = 10;
             this.rbSearchStation.Text = "Stationssuche";
             this.rbSearchStation.UseVisualStyleBackColor = true;
             // 
             // panelTimeTabel
             // 
-            this.panelTimeTabel.Controls.Add(this.panelSearchStation);
             this.panelTimeTabel.Controls.Add(this.label1);
             this.panelTimeTabel.Controls.Add(this.btnTimeTable);
             this.panelTimeTabel.Controls.Add(this.label2);
@@ -296,7 +295,7 @@
             this.panelSearchStation.Controls.Add(this.txtAdresse);
             this.panelSearchStation.Controls.Add(this.txtOrt);
             this.panelSearchStation.Controls.Add(this.txtPlz);
-            this.panelSearchStation.Location = new System.Drawing.Point(0, 0);
+            this.panelSearchStation.Location = new System.Drawing.Point(29, 72);
             this.panelSearchStation.Name = "panelSearchStation";
             this.panelSearchStation.Size = new System.Drawing.Size(362, 163);
             this.panelSearchStation.TabIndex = 30;
@@ -328,7 +327,7 @@
             this.btnSearchStation.Location = new System.Drawing.Point(9, 138);
             this.btnSearchStation.Name = "btnSearchStation";
             this.btnSearchStation.Size = new System.Drawing.Size(120, 23);
-            this.btnSearchStation.TabIndex = 11;
+            this.btnSearchStation.TabIndex = 5;
             this.btnSearchStation.Text = "Station suchen";
             this.btnSearchStation.UseVisualStyleBackColor = true;
             this.btnSearchStation.Click += new System.EventHandler(this.searchStation);
@@ -349,7 +348,7 @@
             this.txtAdresse.Location = new System.Drawing.Point(57, 7);
             this.txtAdresse.Name = "txtAdresse";
             this.txtAdresse.Size = new System.Drawing.Size(213, 22);
-            this.txtAdresse.TabIndex = 8;
+            this.txtAdresse.TabIndex = 2;
             // 
             // txtOrt
             // 
@@ -357,7 +356,7 @@
             this.txtOrt.Location = new System.Drawing.Point(57, 85);
             this.txtOrt.Name = "txtOrt";
             this.txtOrt.Size = new System.Drawing.Size(213, 22);
-            this.txtOrt.TabIndex = 10;
+            this.txtOrt.TabIndex = 4;
             // 
             // txtPlz
             // 
@@ -365,7 +364,7 @@
             this.txtPlz.Location = new System.Drawing.Point(57, 37);
             this.txtPlz.Name = "txtPlz";
             this.txtPlz.Size = new System.Drawing.Size(43, 22);
-            this.txtPlz.TabIndex = 9;
+            this.txtPlz.TabIndex = 3;
             // 
             // label6
             // 
@@ -383,6 +382,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(434, 505);
+            this.Controls.Add(this.panelSearchStation);
             this.Controls.Add(this.panelTimeTabel);
             this.Controls.Add(this.rbSearchStation);
             this.Controls.Add(this.llblMail);

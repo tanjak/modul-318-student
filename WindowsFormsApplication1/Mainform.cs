@@ -51,7 +51,6 @@ namespace WindowsFormsApplication1
             try
             {
                 var connections = transport.GetConnectionsviaDate(fromStation, toStation, date, time).ConnectionList;
-                MessageBox.Show("Hi");
 
                 foreach (var connection in connections)
                 {
@@ -177,7 +176,10 @@ namespace WindowsFormsApplication1
         //A006
         //Station auf Google Maps anzeigen
         private void showOnMaps(object sender, EventArgs e)
-        {            
+        {
+            //Cursor auf Sanduhr ändern
+            Cursor.Current = Cursors.WaitCursor;
+
             string station = "";
 
             //überprüfen, welcher Button geklickt wurde
@@ -244,7 +246,9 @@ namespace WindowsFormsApplication1
         //Mail mit den Verbindungen versenden
         private void sendMail(object sender, EventArgs e)
         {
-            
+            //Cursor auf Sanduhr ändern
+            Cursor.Current = Cursors.WaitCursor;
+
             StringBuilder mailBody = new StringBuilder();
             //Header dem Stringbuilder hinzufügen
             foreach (DataGridViewColumn col in dgvConnections.Columns)

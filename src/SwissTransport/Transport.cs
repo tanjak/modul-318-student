@@ -117,26 +117,28 @@ namespace SwissTransport
                     JsonConvert.DeserializeObject<Stations>(readToEnd);
                 return station;
             }
-
             return null;
         }
 
+        //Koordinaten aus Adresse herausfinden via Google-Maps Api
         public string getCoordinates(string address)
         {
             var request = CreateWebRequest("http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&address=" + address);
             var response = request.GetResponse();
             var responseStream = response.GetResponseStream();
 
+            //XDocument initialisieren
             XDocument document = XDocument.Load(new StreamReader(responseStream));
 
-            XElement longitudeElement = document.Descendants("lng").FirstOrDefault();
-            XElement latitudeElement = document.Descendants("lat").FirstOrDefault();
+            //Koordinaten aus Google Maps API lesen
+            XElement CoordY = document.Descendants("lng").FirstOrDefault();
+            XElement CoordX = document.Descendants("lat").FirstOrDefault();
 
-            if (longitudeElement != null && latitudeElement != null)
+            //falls Koordinaten nicht leer sind
+            if (CoordX != null && CoordY != null)
             {
-                return latitudeElement.Value.ToString() + ", " + longitudeElement.Value.ToString();
+                return CoordX.Value.ToString() + ", " + CoordY.Value.ToString();
             }
-
             return null;
         }
     }
