@@ -51,6 +51,7 @@ namespace WindowsFormsApplication1
             try
             {
                 var connections = transport.GetConnectionsviaDate(fromStation, toStation, date, time).ConnectionList;
+                MessageBox.Show("Hi");
 
                 foreach (var connection in connections)
                 {
